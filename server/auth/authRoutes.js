@@ -1,5 +1,5 @@
 const router = require('express').Router();
-
+const makeToken = require('./jwt');
 const User = require('../users/User');
 
 router.post('/register', function(req, res) {
@@ -12,5 +12,24 @@ router.post('/register', function(req, res) {
     })
     .catch(err => res.status(500).json(err));
 });
+
+
+router.put('/login', (req, res) => { 
+  const {username, password} = req.body;
+  User.findOne({username})
+  .then(user => {
+    user.validatePassword(password)
+    .then(isMatch => {
+      if(isMatch) {
+        const token = makeToken(user);
+        res.status(201).json({user, token})
+      } else {
+        res.status(401).json({msg: "token invalid"})
+      }
+    })
+    .catch(err => res.status(401).json({msg:"invalid password"}))
+  })
+  .catch(err=> res.status(404).json({msg: "user not found"}))
+})
 
 module.exports = router;
