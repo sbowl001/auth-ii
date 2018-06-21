@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const verifyToken = require('../auth/jwt');
+const {verifyToken} = require('../auth/jwt');
 const User = require('./User');
 
 router.get('/', verifyToken, (req, res) => {

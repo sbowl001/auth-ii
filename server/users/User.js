@@ -36,12 +36,7 @@ userSchema.pre('save', function(next) {
 
 userSchema.methods.validatePassword = function(passwordGuess) {
   return bcrypt.compare(passwordGuess, this.password)
-//   .then( isMatch => {
-//     cb(isMatch)
-// })
-// .catch(err=> {
-//     console.log(err)
-// })
+
 };
 
 module.exports = mongoose.model('User', userSchema, 'users');

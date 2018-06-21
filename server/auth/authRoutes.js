@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const makeToken = require('./jwt');
+const {makeToken} = require('./jwt');
 const User = require('../users/User');
 
 router.post('/register', function(req, res) {

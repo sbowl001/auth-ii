@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import {Route} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Authentication using JWTs</h1>
-        </header>
-        <p className="App-intro">
-          Please implement the required code for the assignment.
-        </p>
-      </div>
-    );
-  }
+const Home = props => {
+    const linkStyle = {
+        margin: 10
+    }
+return (
+    <div> 
+    <Link to="/" style ={linkStyle}> Home </Link>
+    <Link to="/register" style ={linkStyle}> Register </Link>
+    <Link to= "/login" style ={linkStyle}> Login </Link> 
+    <Link to="/users" style ={linkStyle}> Users </Link>
+    </div>
+)
 }
 
-export default App;
+export default Home;
