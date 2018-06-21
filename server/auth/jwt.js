@@ -13,9 +13,24 @@ const makeToken = (user) => {
     return jwt.sign(payload, SECRET, options)  //encrypting the token
 }
 
-// const verifyToken = ( req, res, next) => {
-//     const token = req.headers.authorization;
-// }
+const verifyToken = ( req, res, next) => {
+    const token = req.headers.authorization;
+    if(token === undefined) {
+        res.sendStatus(401);
+        return
+    }
+    jwt.verify(token, SECRET, (err, payload) => {
+        if(err){
+            res.sendStatus(401).json({msg: 'Must contain a valid token'})
+            return //does it matter if return is before or after?
+        }
+        req.payload = payload
+        next()
+    })
+}
 
 
-module.exports = makeToken
+module.exports = { 
+    makeToken,
+    verifyToken
+}
